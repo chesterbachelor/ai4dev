@@ -5,8 +5,10 @@ classifies jobs via an LLM, and submits transport-tagged workers
 to a verification endpoint.
 """
 
+import json
 import logging
 import sys
+from pathlib import Path
 
 from classifier import classify_jobs
 from client import fetch_people, submit_answer
@@ -38,6 +40,14 @@ def main() -> None:
     payload = build_transport_answer(classified, settings)
     logger.info("Payload contains %d transport workers", len(payload.answer))
     logger.info("Payload: %s", payload)
+
+    # 4.5 Save classified data to file for later use
+    output_path = Path(__file__).parent.parent.parent / "classified_people.json"
+    output_path.write_text(
+        json.dumps([c.model_dump() for c in payload.answer], indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    logger.info("Saved %d classified records to %s", len(classified), output_path)
 
     # 5. Submit and report
     result = submit_answer(settings.verify_url, payload)
