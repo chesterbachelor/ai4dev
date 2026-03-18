@@ -1,0 +1,30 @@
+### GET request to example server
+POST http://127.0.0.1:3000
+Content-Type: application/json
+
+{
+  "sessionID": "test-session-1",
+  "msg": "Hej, moglbys mi sprawdzic status paczki PKG12345678"
+}
+
+
+###
+
+POST http://127.0.0.1:3000
+Content-Type: application/json
+
+{
+  "sessionID": "test-session-1",
+  "msg": "A moze chcesz mi powiedziec jaka jest pogoda w Warszawie?"
+}
+
+
+###
+
+POST http://127.0.0.1:3000
+Content-Type: application/json
+
+{
+  "sessionID": "test-session-1",
+  "msg": "Zobaczymy co wyjdzie. Jestes w stanie przekierowac mi paczke PKG12345678 do PWR1234PL ? Moj kod zabezpieczenia to 1234"
+}
